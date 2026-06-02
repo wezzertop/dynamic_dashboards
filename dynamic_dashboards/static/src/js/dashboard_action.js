@@ -105,6 +105,64 @@ export class DynamicDashboardMain extends Component {
     toggleDarkMode() {
         this.state.darkMode = !this.state.darkMode;
     }
+
+    onDragStart(ev, item) {
+        this.draggedItem = item;
+        if (ev.dataTransfer) {
+            ev.dataTransfer.effectAllowed = 'move';
+            ev.dataTransfer.setData('text/plain', item.id);
+        }
+        setTimeout(() => {
+            if (ev.target && ev.target.style) {
+                ev.target.style.opacity = '0.5';
+            }
+        }, 0);
+    }
+
+    onDragOver(ev) {
+        if (ev.dataTransfer) {
+            ev.dataTransfer.dropEffect = 'move';
+        }
+    }
+
+    async onDrop(ev, targetItem) {
+        if (!this.draggedItem || this.draggedItem.id === targetItem.id) {
+            return;
+        }
+
+        const items = [...this.state.items];
+        const draggedIdx = items.findIndex(i => i.id === this.draggedItem.id);
+        const targetIdx = items.findIndex(i => i.id === targetItem.id);
+
+        items.splice(draggedIdx, 1);
+        items.splice(targetIdx, 0, this.draggedItem);
+
+        items.forEach((item, idx) => {
+            item.sequence = idx * 10;
+        });
+
+        this.state.items = items;
+
+        try {
+            const updates = items.map(item => ({
+                id: item.id,
+                sequence: item.sequence
+            }));
+            
+            await Promise.all(updates.map(u => 
+                this.orm.write("dynamic.dashboard.item", [u.id], { sequence: u.sequence })
+            ));
+        } catch (e) {
+            console.error("Failed to save new order", e);
+        }
+    }
+
+    onDragEnd(ev) {
+        if (ev.target && ev.target.style) {
+            ev.target.style.opacity = '1';
+        }
+        this.draggedItem = null;
+    }
 }
 DynamicDashboardMain.components = { ChartWidget };
 DynamicDashboardMain.template = "dynamic_dashboards.Main";

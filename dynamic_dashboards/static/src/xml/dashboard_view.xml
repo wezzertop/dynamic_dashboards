@@ -37,7 +37,14 @@
                 
                 <div t-else="" class="row g-4">
                     <t t-foreach="state.items" t-as="item" t-key="item.id">
-                        <div t-attf-class="col-md-{{item.col_span}}">
+                        <div t-attf-class="col-md-{{item.col_span}}"
+                             draggable="true"
+                             t-on-dragstart="(ev) => this.onDragStart(ev, item)"
+                             t-on-dragover.prevent="(ev) => this.onDragOver(ev)"
+                             t-on-drop="(ev) => this.onDrop(ev, item)"
+                             t-on-dragend="(ev) => this.onDragEnd(ev)"
+                             t-on-dragenter.prevent=""
+                             style="cursor: grab;">
                             <ChartWidget item="item" dateFilter="state.dateFilter" darkMode="state.darkMode" />
                         </div>
                     </t>
