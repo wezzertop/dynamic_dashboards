@@ -27,18 +27,25 @@ class DynamicDashboardDemoWizard(models.TransientModel):
             })
             partners.append(p)
             
-        prod_type = 'product' if 'stock.picking' in self.env else 'consu'
+        is_odoo18 = 'is_storable' in self.env['product.product']._fields
         
         # 2. Create Demo Products
         products = []
         for i in range(15):
-            p = Product.create({
+            vals = {
                 'name': f'Demo Product {i+1}',
-                'type': prod_type,
                 'invoice_policy': 'order',
                 'list_price': random.randint(10, 500) * 1.0,
                 'standard_price': random.randint(5, 200) * 1.0,
-            })
+            }
+            if is_odoo18:
+                vals['type'] = 'consu'
+                if 'stock.picking' in self.env:
+                    vals['is_storable'] = True
+            else:
+                vals['type'] = 'product' if 'stock.picking' in self.env else 'consu'
+                
+            p = Product.create(vals)
             products.append(p)
             
         # 3. Create Sales Orders spread over the last 6 months
