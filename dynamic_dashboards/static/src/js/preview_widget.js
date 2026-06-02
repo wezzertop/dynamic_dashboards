@@ -66,4 +66,6 @@ DashboardItemPreview.props = {
     update: { type: Function, optional: true },
 };
 
-registry.category("fields").add("dashboard_item_preview", DashboardItemPreview);
+registry.category("fields").add("dashboard_item_preview", {
+    component: DashboardItemPreview,
+});
