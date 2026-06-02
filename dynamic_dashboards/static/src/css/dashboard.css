@@ -3,6 +3,12 @@
     background-color: #f8f9fa;
 }
 
+.o_dynamic_dashboard_container {
+    height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+}
+
 .o_dynamic_dashboard .card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -10,4 +16,45 @@
 .o_dynamic_dashboard .card:hover {
     transform: translateY(-2px);
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.08)!important;
+}
+
+/* Dark mode overrides */
+.bg-dark-custom {
+    background-color: #121212 !important;
+}
+
+.dark-mode-card {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+}
+
+.light-mode-card {
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
+}
+
+.dark-mode-select {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+    border: 1px solid #444 !important;
+}
+
+.dark-mode-select option {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+.dark-mode-btn {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+    border: 1px solid #444 !important;
+}
+
+.dark-mode-btn:hover {
+    background-color: #3c3c3c !important;
+}
+
+.dark-mode-icon {
+    color: #e0e0e0 !important;
 }

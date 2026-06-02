@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="dynamic_dashboards.Main" owl="1">
-        <div t-attf-class="o_action_manager overflow-auto pb-5 {{ state.darkMode ? 'bg-dark text-white' : 'bg-light' }}" style="min-height: 100vh;">
+        <div t-attf-class="o_action_manager o_dynamic_dashboard_container pb-5 {{ state.darkMode ? 'bg-dark-custom text-white' : 'bg-light' }}">
             <div class="container-fluid py-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h1 t-attf-class="fw-bold {{ state.darkMode ? 'text-white' : 'text-primary' }}">My Dashboards</h1>
                     <div>
-                        <select t-attf-class="form-select form-select-lg shadow-sm d-inline-block w-auto me-2 {{ state.darkMode ? 'bg-secondary text-white border-0' : '' }}" t-on-change="onChangeDashboard">
+                        <select t-attf-class="form-select form-select-lg shadow-sm d-inline-block w-auto me-2 {{ state.darkMode ? 'dark-mode-select' : '' }}" t-on-change="onChangeDashboard">
                             <t t-foreach="state.dashboards" t-as="dash" t-key="dash.id">
                                 <option t-att-value="dash.id" t-att-selected="state.activeDashboardId === dash.id">
                                     <t t-esc="dash.name"/>
                                 </option>
                             </t>
                         </select>
-                        <select t-attf-class="form-select form-select-lg shadow-sm d-inline-block w-auto {{ state.darkMode ? 'bg-secondary text-white border-0' : '' }}" t-on-change="onChangeDateFilter" t-if="state.activeDashboardId">
+                        <select t-attf-class="form-select form-select-lg shadow-sm d-inline-block w-auto {{ state.darkMode ? 'dark-mode-select' : '' }}" t-on-change="onChangeDateFilter" t-if="state.activeDashboardId">
                             <option value="all" t-att-selected="state.dateFilter === 'all'">All Time</option>
                             <option value="today" t-att-selected="state.dateFilter === 'today'">Today</option>
                             <option value="this_month" t-att-selected="state.dateFilter === 'this_month'">This Month</option>
                             <option value="this_year" t-att-selected="state.dateFilter === 'this_year'">This Year</option>
                         </select>
-                        <button t-attf-class="btn form-select-lg shadow-sm d-inline-block w-auto ms-2 {{ state.darkMode ? 'btn-secondary' : 'btn-outline-secondary bg-white' }}" t-on-click="toggleDarkMode" title="Toggle Dark Mode">
+                        <button t-attf-class="btn form-select-lg shadow-sm d-inline-block w-auto ms-2 {{ state.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary bg-white' }}" t-on-click="toggleDarkMode" title="Toggle Dark Mode">
                             <i t-attf-class="fa fa-{{ state.darkMode ? 'sun-o text-warning' : 'moon-o text-dark' }}"></i>
                         </button>
                     </div>
