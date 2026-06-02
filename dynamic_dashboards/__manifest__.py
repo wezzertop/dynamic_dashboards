@@ -16,7 +16,7 @@ Key Features:
 - Responsive and modern OWL frontend
     """,
     'author': 'JDDM',
-    'depends': ['base', 'web', 'board', 'sale_management', 'purchase', 'stock', 'sale_stock'],
+    'depends': ['base', 'web', 'board'],
     'data': [
         'security/ir.model.access.csv',
         'security/security_rules.xml',
@@ -25,9 +25,6 @@ Key Features:
         'views/dashboard_item_views.xml',
         'views/menus.xml',
         'views/demo_data_wizard_views.xml',
-        'data/sales_dashboard.xml',
-        'data/inventory_dashboard.xml',
-        'data/purchases_dashboard.xml',
     ],
     'assets': {
         'web.assets_backend': [
