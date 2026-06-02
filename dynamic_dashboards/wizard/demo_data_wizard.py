@@ -53,7 +53,7 @@ class DynamicDashboardDemoWizard(models.TransientModel):
                 'state': 'draft',
             })
             
-            for _ in range(random.randint(1, 5)):
+            for line_idx in range(random.randint(1, 5)):
                 product = random.choice(products)
                 qty = random.randint(1, 10)
                 self.env['sale.order.line'].create({
