@@ -6,6 +6,9 @@
                     <t t-esc="props.item.name"/>
                 </h5>
                 <div>
+                    <button t-if="!props.previewData" t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" t-on-click="onEditChart" title="Edit Chart Settings">
+                        <i t-attf-class="fa fa-ellipsis-v {{ props.darkMode ? 'dark-mode-icon' : '' }}"></i>
+                    </button>
                     <button t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" t-on-click="downloadCsv" title="Export to CSV">
                         <i t-attf-class="fa fa-file-excel-o {{ props.darkMode ? 'dark-mode-icon' : '' }}"></i>
                     </button>

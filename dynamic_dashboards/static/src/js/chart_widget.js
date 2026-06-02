@@ -95,6 +95,23 @@ export class ChartWidget extends Component {
         }
     }
 
+    async onEditChart() {
+        if (!this.props.item || !this.props.item.id) return;
+        
+        this.action.doAction({
+            type: 'ir.actions.act_window',
+            res_model: 'dynamic.dashboard.item',
+            res_id: this.props.item.id,
+            views: [[false, 'form']],
+            target: 'new',
+            name: _t("Edit Chart Settings"),
+        }, {
+            onClose: () => {
+                window.location.reload();
+            }
+        });
+    }
+
     renderChart() {
         if (this.props.item.chart_type === 'kpi' || this.props.item.chart_type === 'list' || !this.state.data.labels || this.state.data.labels.length === 0) {
             return;
