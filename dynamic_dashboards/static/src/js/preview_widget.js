@@ -3,7 +3,6 @@
 import { Component, useState, useEffect } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
-import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { ChartWidget } from "./chart_widget";
 
 export class DashboardItemPreview extends Component {
@@ -59,6 +58,12 @@ export class DashboardItemPreview extends Component {
 
 DashboardItemPreview.template = "dynamic_dashboards.PreviewWidget";
 DashboardItemPreview.components = { ChartWidget };
-DashboardItemPreview.props = { ...standardFieldProps };
+DashboardItemPreview.props = {
+    id: { type: String, optional: true },
+    name: { type: String, optional: true },
+    record: { type: Object },
+    readonly: { type: Boolean, optional: true },
+    update: { type: Function, optional: true },
+};
 
 registry.category("fields").add("dashboard_item_preview", DashboardItemPreview);
