@@ -27,12 +27,14 @@ class DynamicDashboardDemoWizard(models.TransientModel):
             })
             partners.append(p)
             
+        prod_type = 'product' if 'stock.picking' in self.env else 'consu'
+        
         # 2. Create Demo Products
         products = []
-        for i in range(10):
+        for i in range(15):
             p = Product.create({
                 'name': f'Demo Product {i+1}',
-                'type': 'consu',
+                'type': prod_type,
                 'invoice_policy': 'order',
                 'list_price': random.randint(10, 500) * 1.0,
                 'standard_price': random.randint(5, 200) * 1.0,
@@ -71,13 +73,53 @@ class DynamicDashboardDemoWizard(models.TransientModel):
                         invoice.write({'invoice_date': date_order.date()})
                         if random.random() > 0.5:
                             invoice.action_post()
+
+        # 4. Create Purchase Orders if purchase app is installed
+        if 'purchase.order' in self.env:
+            PurchaseOrder = self.env['purchase.order']
+            for i in range(int(self.record_count * 0.6)):
+                days_ago = random.randint(0, 180)
+                date_order = today - timedelta(days=days_ago)
+                partner = random.choice(partners)
+                
+                po = PurchaseOrder.create({
+                    'partner_id': partner.id,
+                    'date_order': date_order,
+                    'state': 'draft',
+                })
+                
+                for line_idx in range(random.randint(1, 5)):
+                    product = random.choice(products)
+                    qty = random.randint(10, 50)
+                    self.env['purchase.order.line'].create({
+                        'order_id': po.id,
+                        'product_id': product.id,
+                        'product_qty': qty,
+                        'price_unit': product.standard_price,
+                    })
+                    
+                if random.random() > 0.4:
+                    po.button_confirm()
+
+        # 5. Process some Stock Pickings to populate Warehouse Operations
+        if 'stock.picking' in self.env:
+            pickings = self.env['stock.picking'].search([('state', 'in', ['confirmed', 'assigned'])], limit=self.record_count)
+            for picking in pickings:
+                if random.random() > 0.5:
+                    try:
+                        picking.action_assign()
+                        for move in picking.move_ids:
+                            move.quantity = move.product_uom_qty
+                        picking.button_validate()
+                    except Exception as e:
+                        pass
                             
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
                 'title': _('Success'),
-                'message': _('Successfully generated %s sales orders, along with products and customers.') % self.record_count,
+                'message': _('Successfully generated %s sales/purchase records, along with products and stock moves.') % self.record_count,
                 'type': 'success',
                 'sticky': False,
             }
