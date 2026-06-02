@@ -1,0 +1,61 @@
+<templates xml:space="preserve">
+    <t t-name="dynamic_dashboards.ChartWidget" owl="1">
+        <div t-attf-class="card shadow-sm h-100 border-0 {{ props.darkMode ? 'bg-dark text-white' : '' }}" style="border-radius: 15px; overflow: hidden;">
+            <div t-attf-class="card-header border-0 pt-4 pb-2 d-flex justify-content-between align-items-center {{ props.darkMode ? 'bg-dark' : 'bg-white' }}">
+                <h5 t-attf-class="card-title fw-bold mb-0 {{ props.darkMode ? 'text-white' : 'text-dark' }}">
+                    <t t-esc="props.item.name"/>
+                </h5>
+                <div>
+                    <button t-attf-class="btn btn-sm border-0 me-1 {{ props.darkMode ? 'btn-outline-light' : 'btn-outline-secondary' }}" t-on-click="downloadCsv" title="Export to CSV">
+                        <i class="fa fa-file-excel-o"></i>
+                    </button>
+                    <button t-attf-class="btn btn-sm border-0 {{ props.darkMode ? 'btn-outline-light' : 'btn-outline-secondary' }}" t-on-click="downloadChart" title="Download Image">
+                        <i class="fa fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center position-relative">
+                
+                <div t-if="state.loading" class="position-absolute w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="z-index: 10; opacity: 0.8;">
+                    <i class="fa fa-spinner fa-spin fa-2x text-primary"></i>
+                </div>
+
+                <!-- KPI Card -->
+                <div t-if="props.item.chart_type === 'kpi'" class="text-center w-100 py-3">
+                    <h2 class="display-4 fw-bold text-primary mb-0">
+                        <t t-esc="formatNumber(state.data.kpi_value)"/>
+                    </h2>
+                </div>
+
+                <!-- List View (Data Table) -->
+                <div t-elif="props.item.chart_type === 'list'" class="w-100 overflow-auto" style="max-height: 300px;">
+                    <table t-attf-class="table table-sm table-hover mb-0 {{ props.darkMode ? 'table-dark' : '' }}">
+                        <thead t-attf-class="sticky-top {{ props.darkMode ? 'bg-dark' : 'bg-white' }}">
+                            <tr>
+                                <th>#</th>
+                                <th>Label</th>
+                                <th class="text-end">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="state.data.labels">
+                                <t t-foreach="state.data.labels" t-as="label" t-key="label_index">
+                                    <tr t-on-click="() => this.onChartClick(label_index)" style="cursor: pointer;">
+                                        <td class="text-muted"><t t-esc="label_index + 1"/></td>
+                                        <td><t t-esc="label"/></td>
+                                        <td class="text-end fw-bold"><t t-esc="formatNumber(state.data.data[label_index])"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Chart.js Canvas -->
+                <div t-else="" class="w-100" style="position: relative; height: 300px;">
+                    <canvas t-ref="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

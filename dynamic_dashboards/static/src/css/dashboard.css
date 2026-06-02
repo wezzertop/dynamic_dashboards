@@ -1,0 +1,13 @@
+.o_dynamic_dashboard {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.o_dynamic_dashboard .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.o_dynamic_dashboard .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.08)!important;
+}

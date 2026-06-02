@@ -1,0 +1,112 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* dynamic_dashboards
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-02 12:00+0000\n"
+"PO-Revision-Date: 2026-06-02 12:00+0000\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard__name
+msgid "Dashboard Name"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.ui.menu,name:dynamic_dashboards.menu_dynamic_dashboard_root
+msgid "Dashboards"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.actions.client,name:dynamic_dashboards.action_dynamic_dashboard_main
+#: model:ir.ui.menu,name:dynamic_dashboards.menu_dynamic_dashboard_view
+msgid "My Dashboards"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.ui.menu,name:dynamic_dashboards.menu_dynamic_dashboard_config
+msgid "Configuration"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.actions.act_window,name:dynamic_dashboards.action_dynamic_dashboard_config
+#: model:ir.ui.menu,name:dynamic_dashboards.menu_dynamic_dashboard_settings
+msgid "Dashboards Setup"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__chart_type
+msgid "Chart Type"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields.selection,name:dynamic_dashboards.selection__dynamic_dashboard_item__chart_type__bar
+msgid "Bar Chart"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields.selection,name:dynamic_dashboards.selection__dynamic_dashboard_item__chart_type__pie
+msgid "Pie Chart"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields.selection,name:dynamic_dashboards.selection__dynamic_dashboard_item__chart_type__line
+msgid "Line Chart"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields.selection,name:dynamic_dashboards.selection__dynamic_dashboard_item__chart_type__kpi
+msgid "KPI Card (Single Value)"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields.selection,name:dynamic_dashboards.selection__dynamic_dashboard_item__chart_type__doughnut
+msgid "Doughnut Chart"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__model_id
+msgid "Odoo Model"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__measure_field_id
+msgid "Measure Field"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__group_by_field_id
+msgid "Group By Field"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__date_field_id
+msgid "Date Field (For Line/Time charts)"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard__item_ids
+msgid "Dashboard Items"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__name
+msgid "Item Name"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__domain
+msgid "Filter Domain"
+msgstr ""
+
+#. module: dynamic_dashboards
+#: model:ir.model.fields,field_description:dynamic_dashboards.field_dynamic_dashboard_item__limit
+msgid "Record Limit"
+msgstr ""

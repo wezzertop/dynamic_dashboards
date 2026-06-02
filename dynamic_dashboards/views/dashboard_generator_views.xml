@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dynamic_dashboard_generator_form" model="ir.ui.view">
+        <field name="name">dynamic.dashboard.generator.form</field>
+        <field name="model">dynamic.dashboard.generator</field>
+        <field name="arch" type="xml">
+            <form string="Smart Generator">
+                <sheet>
+                    <div class="oe_title mb-4">
+                        <h1 class="text-primary"><i class="fa fa-magic me-2"></i>Smart Dashboard Generator</h1>
+                        <p class="text-muted">Select a model to automatically generate recommended charts.</p>
+                    </div>
+                    <group>
+                        <field name="dashboard_id" invisible="1"/>
+                        <field name="model_id" options="{'no_create': True}"/>
+                    </group>
+                    
+                    <field name="line_ids" mode="kanban" invisible="not model_id">
+                        <kanban create="0" delete="0">
+                            <field name="name"/>
+                            <field name="chart_type"/>
+                            <field name="selected"/>
+                            <field name="col_span"/>
+                            <field name="group_by_field_name"/>
+                            <field name="measure_field_name"/>
+                            <field name="date_field_name"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div t-attf-class="oe_kanban_global_click p-3 {{ record.selected.raw_value ? 'border-primary bg-light' : 'border-secondary' }}" style="border: 2px solid; border-radius: 10px; position: relative;">
+                                        <div class="position-absolute top-0 end-0 p-2">
+                                            <field name="selected" widget="boolean_toggle"/>
+                                        </div>
+                                        <div class="oe_kanban_details text-center pt-2">
+                                            <div class="o_kanban_image d-inline-block mb-3 mt-2" style="font-size: 3.5rem;">
+                                                <i t-if="record.chart_type.raw_value == 'pie'" class="fa fa-pie-chart text-primary"/>
+                                                <i t-elif="record.chart_type.raw_value == 'doughnut'" class="fa fa-circle-o-notch text-success"/>
+                                                <i t-elif="record.chart_type.raw_value == 'bar'" class="fa fa-bar-chart text-info"/>
+                                                <i t-elif="record.chart_type.raw_value == 'line'" class="fa fa-line-chart text-warning"/>
+                                                <i t-elif="record.chart_type.raw_value == 'kpi'" class="fa fa-calculator text-danger"/>
+                                                <i t-elif="record.chart_type.raw_value == 'radar'" class="fa fa-bullseye text-secondary"/>
+                                                <i t-elif="record.chart_type.raw_value == 'polarArea'" class="fa fa-life-ring text-secondary"/>
+                                                <i t-elif="record.chart_type.raw_value == 'area'" class="fa fa-area-chart text-warning"/>
+                                                <i t-elif="record.chart_type.raw_value == 'list'" class="fa fa-list-alt text-primary"/>
+                                                <i t-else="" class="fa fa-area-chart text-secondary"/>
+                                            </div>
+                                            <br/>
+                                            <strong class="fs-5 text-dark"><field name="name"/></strong>
+                                            <div class="text-muted small mt-2 fw-bold text-uppercase">
+                                                <field name="chart_type"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_generate" string="Generate Selected" type="object" class="btn-primary" icon="fa-magic"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_dynamic_dashboard_generator" model="ir.actions.act_window">
+        <field name="name">Smart Generator</field>
+        <field name="res_model">dynamic.dashboard.generator</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="dashboard_inventory_default" model="dynamic.dashboard">
+        <field name="name">Warehouse Operations</field>
+        <field name="theme_color">green</field>
+    </record>
+
+    <!-- Bar Chart: Moves by picking type -->
+    <record id="item_inventory_moves" model="dynamic.dashboard.item">
+        <field name="name">Moves by Operation Type</field>
+        <field name="dashboard_id" ref="dashboard_inventory_default"/>
+        <field name="sequence">10</field>
+        <field name="chart_type">bar</field>
+        <field name="col_span">6</field>
+        <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+        <field name="domain">[('state', '=', 'done')]</field>
+        <field name="group_by_field_id" search="[('model_id.model', '=', 'stock.picking'), ('name', '=', 'picking_type_id')]"/>
+    </record>
+
+    <!-- Doughnut: Products in Stock by Category -->
+    <record id="item_inventory_stock" model="dynamic.dashboard.item">
+        <field name="name">Stock Value by Category</field>
+        <field name="dashboard_id" ref="dashboard_inventory_default"/>
+        <field name="sequence">20</field>
+        <field name="chart_type">doughnut</field>
+        <field name="col_span">6</field>
+        <field name="model_id" search="[('model', '=', 'stock.quant')]"/>
+        <field name="domain">[('location_id.usage', '=', 'internal')]</field>
+        <field name="measure_field_id" search="[('model_id.model', '=', 'stock.quant'), ('name', '=', 'value')]"/>
+        <field name="group_by_field_id" search="[('model_id.model', '=', 'stock.quant'), ('name', '=', 'product_categ_id')]"/>
+        <field name="limit">5</field>
+    </record>
+</odoo>

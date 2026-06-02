@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dynamic_dashboard_user,dynamic.dashboard user,model_dynamic_dashboard,base.group_user,1,0,0,0
+access_dynamic_dashboard_manager,dynamic.dashboard manager,model_dynamic_dashboard,base.group_erp_manager,1,1,1,1
+access_dynamic_dashboard_item_user,dynamic.dashboard.item user,model_dynamic_dashboard_item,base.group_user,1,0,0,0
+access_dynamic_dashboard_item_manager,dynamic.dashboard.item manager,model_dynamic_dashboard_item,base.group_erp_manager,1,1,1,1
+access_dynamic_dashboard_generator,access_dynamic_dashboard_generator,model_dynamic_dashboard_generator,base.group_user,1,1,1,1
+access_dynamic_dashboard_generator_line,access_dynamic_dashboard_generator_line,model_dynamic_dashboard_generator_line,base.group_user,1,1,1,1
+access_dynamic_dashboard_demo_wizard,access_dynamic_dashboard_demo_wizard,model_dynamic_dashboard_demo_wizard,base.group_erp_manager,1,1,1,1

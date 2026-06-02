@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dynamic_dashboard_demo_wizard_form" model="ir.ui.view">
+        <field name="name">dynamic.dashboard.demo.wizard.form</field>
+        <field name="model">dynamic.dashboard.demo.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Demo Data">
+                <sheet>
+                    <div class="oe_title mb-4">
+                        <h1 class="text-danger"><i class="fa fa-database me-2"></i>Demo Data Generator</h1>
+                        <p class="text-muted">Use this tool to populate your database with fake Sales Orders, Customers, Products, and Invoices distributed over the last 6 months. This will bring your dashboards to life!</p>
+                    </div>
+                    <group>
+                        <field name="record_count"/>
+                    </group>
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <strong>Warning:</strong> This will create dummy data in your database. Do not use this in a production environment!
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_generate_demo_data" string="Generate Magic Data" type="object" class="btn-danger" icon="fa-magic"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dynamic_dashboard_demo_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Demo Data</field>
+        <field name="res_model">dynamic.dashboard.demo.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_dynamic_dashboard_demo_wizard"
+              name="Generate Demo Data"
+              parent="dynamic_dashboards.menu_dynamic_dashboard_config"
+              action="action_dynamic_dashboard_demo_wizard"
+              sequence="100"/>
+</odoo>

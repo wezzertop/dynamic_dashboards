@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dynamic_dashboard_form" model="ir.ui.view">
+        <field name="name">dynamic.dashboard.form</field>
+        <field name="model">dynamic.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard">
+                <header>
+                    <button name="%(action_dynamic_dashboard_generator)d" type="action" string="Smart Generator" class="oe_highlight" icon="fa-magic" context="{'default_dashboard_id': id}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title mb-4">
+                        <label for="name" class="oe_edit_only text-primary fw-bold"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Executive Sales Overview" class="text-primary"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Appearance">
+                            <field name="theme_color" widget="radio" options="{'horizontal': true}"/>
+                            <field name="auto_refresh" widget="radio" options="{'horizontal': true}"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Security Access">
+                            <field name="group_ids" widget="many2many_tags" placeholder="Leave empty for all users" options="{'color_field': 'color'}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Charts &amp; Widgets" icon="fa-bar-chart">
+                            <field name="item_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dynamic_dashboard_tree" model="ir.ui.view">
+        <field name="name">dynamic.dashboard.tree</field>
+        <field name="model">dynamic.dashboard</field>
+        <field name="arch" type="xml">
+            <list string="Dashboards">
+                <field name="name"/>
+                <field name="theme_color"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_dynamic_dashboard_config" model="ir.actions.act_window">
+        <field name="name">Dashboard Configurations</field>
+        <field name="res_model">dynamic.dashboard</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
