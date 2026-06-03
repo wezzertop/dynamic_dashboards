@@ -120,8 +120,25 @@ class DynamicDashboardDemoWizard(models.TransientModel):
                         for move in picking.move_ids:
                             move.quantity = move.product_uom_qty
                         picking.button_validate()
+                        picking_date = picking.sale_id.date_order or picking.purchase_id.date_order or today
+                        picking.write({'date_done': picking_date})
+                        picking.move_ids.write({'date': picking_date})
                     except Exception as e:
                         pass
+        
+        # 6. Force Inventory Adjustments to guarantee Stock Value
+        if 'stock.quant' in self.env:
+            try:
+                stock_location = self.env.ref('stock.stock_location_stock')
+                for product in products:
+                    quant = self.env['stock.quant'].create({
+                        'product_id': product.id,
+                        'location_id': stock_location.id,
+                        'inventory_quantity': random.randint(50, 500),
+                    })
+                    quant.action_apply_inventory()
+            except Exception as e:
+                pass
                             
         return {
             'type': 'ir.actions.client',
