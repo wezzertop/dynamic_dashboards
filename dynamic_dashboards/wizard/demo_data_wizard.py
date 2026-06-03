@@ -74,10 +74,11 @@ class DynamicDashboardDemoWizard(models.TransientModel):
                 
             if random.random() > 0.3:
                 order.action_confirm()
+                order.write({'date_order': date_order}) # Restore historical date
                 if random.random() > 0.5:
                     invoice = order._create_invoices()
                     if invoice:
-                        invoice.write({'invoice_date': date_order.date()})
+                        invoice.write({'invoice_date': date_order.date(), 'date': date_order.date()})
                         if random.random() > 0.5:
                             invoice.action_post()
 
@@ -107,6 +108,7 @@ class DynamicDashboardDemoWizard(models.TransientModel):
                     
                 if random.random() > 0.4:
                     po.button_confirm()
+                    po.write({'date_order': date_order, 'date_approve': date_order}) # Restore historical date
 
         # 5. Process some Stock Pickings to populate Warehouse Operations
         if 'stock.picking' in self.env:
