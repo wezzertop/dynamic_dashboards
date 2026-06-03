@@ -1,113 +1,236 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Dynamic Dashboards Pro</title>
-</head>
-<body>
-
-<section class="oe_container" style="font-family: 'Inter', 'Roboto', sans-serif; background-color: #f8f9fa; padding-bottom: 50px;">
+<section class="oe_container" style="font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; padding-bottom: 80px;">
     
-    <!-- Hero Banner -->
-    <div class="row align-items-center mb-5" style="background-color: #0d1117; border-radius: 0 0 30px 30px; padding: 4rem 2rem; margin: 0; position: relative; overflow: hidden;">
-        
-        <div class="col-lg-8 text-left pl-lg-5 position-relative z-index-1">
-            <span class="badge badge-primary mb-3" style="font-size: 1.1rem; padding: 8px 15px; border-radius: 20px; background-color: #00f2fe; color: #0d1117; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Business Intelligence Engine</span>
-            <h1 class="display-4 font-weight-bold mb-4" style="color: #ffffff; line-height: 1.2;">Premium Dynamic Dashboards <span style="color: #00f2fe;">Pro</span></h1>
-            <p class="lead mb-4" style="color: #8b949e; font-size: 1.25rem; font-weight: 300;">
-                Build stunning, real-time KPI dashboards in seconds. Turn raw Odoo data into beautiful Pie Charts, Bar Graphs, and Line Trends without writing a single line of code.
+    <!-- Hero Banner with GIF -->
+    <div class="row align-items-center mb-5" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 0 0 30px 30px; padding: 4rem 2rem; margin: 0; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);">
+        <div class="col-lg-12 text-center position-relative z-index-1">
+            <span class="badge mb-3" style="font-size: 0.95rem; padding: 10px 18px; border-radius: 50px; background-color: #38bdf8; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);">Enterprise BI Engine</span>
+            <h1 class="display-4 font-weight-bold mb-4" style="color: #ffffff; line-height: 1.25; font-size: 3.25rem; letter-spacing: -0.5px;">Premium Dynamic Dashboards <span style="color: #38bdf8;">Pro</span></h1>
+            <p class="lead mb-4" style="color: #94a3b8; font-size: 1.3rem; font-weight: 300; line-height: 1.6;">
+                Turn raw Odoo database records into professional Business Intelligence in minutes. Group, filter, aggregate, style, and auto-arrange charts completely client-side. Zero coding, 100% stability.
             </p>
-            <div class="mt-4">
-                <span style="font-size: 1.1rem; color: #ffffff; display: inline-block; margin-right: 20px;"><i class="fa fa-check-circle" style="color: #00f2fe;"></i> Odoo 17 & 18 Ready</span>
-                <span style="font-size: 1.1rem; color: #ffffff; display: inline-block; margin-right: 20px;"><i class="fa fa-bolt" style="color: #00f2fe;"></i> Real-Time Data</span>
-            </div>
-        </div>
-        <div class="col-lg-4 text-center d-none d-lg-block">
-            <i class="fa fa-bar-chart fa-5x" style="font-size: 10rem; color: rgba(0, 242, 254, 0.15);"></i>
         </div>
     </div>
 
-    <!-- 3 Dashboards Included -->
-    <div class="container mb-5">
+    <!-- Live Demo Preview (GIF Showcase) -->
+    <div class="container text-center mb-5" style="margin-top: -40px; position: relative; z-index: 10;">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div style="background-color: #ffffff; padding: 12px; border-radius: 20px; box-shadow: 0 15px 40px rgba(15, 23, 42, 0.2); border: 1px solid #e2e8f0;">
+                    <img src="banner.gif" alt="Premium Dynamic Dashboards Pro Demo" class="img-fluid" style="border-radius: 12px; width: 100%; display: block; margin: 0 auto;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Install -->
+    <div class="container mb-5 mt-5">
         <div class="row text-center mb-5">
             <div class="col-lg-8 offset-lg-2">
-                <h2 class="font-weight-bold" style="color: #0d1117; font-size: 2.5rem;">Plug & Play: 3 Pre-Built Dashboards Included</h2>
-                <div style="width: 60px; height: 4px; background-color: #00f2fe; margin: 15px auto 30px;"></div>
-                <p class="text-muted" style="font-size: 1.15rem;">
-                    We don't just give you a blank slate. The moment you install the module, your Odoo will automatically populate with three extremely powerful executive dashboards.
-                </p>
+                <span style="color: #3b82f6; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Getting Started</span>
+                <h2 class="font-weight-bold mt-2" style="color: #0f172a; font-size: 2.3rem;">How to Install</h2>
+                <div style="width: 50px; height: 4px; background-color: #3b82f6; border-radius: 2px; margin: 15px auto 25px;"></div>
+                <div style="text-align: left; background-color: #ffffff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                    <ol style="font-size: 1.1rem; color: #475569; line-height: 1.8;">
+                        <li>Download the module from the Odoo App Store.</li>
+                        <li>Extract the downloaded file and place the <strong>dynamic_dashboards</strong> folder into your Odoo <strong>addons</strong> directory.</li>
+                        <li>Restart your Odoo server.</li>
+                        <li>Log in to your Odoo database as an Administrator.</li>
+                        <li>Activate <strong>Developer Mode</strong> (Settings > Activate the developer mode).</li>
+                        <li>Go to the <strong>Apps</strong> menu and click <strong>Update Apps List</strong>.</li>
+                        <li>Search for <strong>Premium Dynamic Dashboards Pro</strong>, remove the 'Apps' filter, and click <strong>Install</strong>.</li>
+                    </ol>
+                    <p style="color: #10b981; font-weight: 600; margin-top: 15px;"><i class="fa fa-check-circle"></i> No extra Python libraries or external dependencies required! Works completely natively with Odoo 17 & 18.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="container mb-5 mt-5">
+        <div class="row text-center mb-5">
+            <div class="col-lg-10 offset-lg-1">
+                <span style="color: #3b82f6; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Step-by-Step Guide</span>
+                <h2 class="font-weight-bold mt-2" style="color: #0f172a; font-size: 2.3rem;">How to Use the Dashboards</h2>
+                <div style="width: 50px; height: 4px; background-color: #3b82f6; border-radius: 2px; margin: 15px auto 25px;"></div>
+            </div>
+        </div>
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 p-4" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9;">
+                    <h4 class="font-weight-bold mb-3" style="color: #0f172a;"><span style="color: #3b82f6; margin-right: 10px;">1.</span> Create a Board</h4>
+                    <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">Navigate to the <strong>Dashboards</strong> menu. Under Configuration, select <strong>Dashboards Boards</strong> and create a new board (e.g., "Executive Sales").</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 p-4" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9;">
+                    <h4 class="font-weight-bold mb-3" style="color: #0f172a;"><span style="color: #3b82f6; margin-right: 10px;">2.</span> Generate Widgets Automatically</h4>
+                    <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">Click the <strong>Smart Generator</strong> button. Select any Odoo model (like 'Sales Order'). The system will instantly scan the database fields and generate 6 ready-to-use charts.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 p-4" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9;">
+                    <h4 class="font-weight-bold mb-3" style="color: #0f172a;"><span style="color: #3b82f6; margin-right: 10px;">3.</span> Create Custom Widgets Manually</h4>
+                    <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">Go to <strong>Dashboard Items</strong>, click New. Pick your Model, define a domain/filter, select a Measure (Sum/Count/Avg), and select a Group By field (e.g., Salesperson). Choose your Chart Type (Pie, Bar, Line, KPI, List).</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 p-4" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9;">
+                    <h4 class="font-weight-bold mb-3" style="color: #0f172a;"><span style="color: #3b82f6; margin-right: 10px;">4.</span> Organize & View</h4>
+                    <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">Open your Dashboard Board view. Click the <strong>Magic Wand</strong> icon in the header to Auto-Organize the grid, placing KPIs on top and large charts below. Use drag & drop to resize!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. The Core Functional Sections -->
+    <div class="container mb-5 mt-5">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 offset-lg-2">
+                <span style="color: #3b82f6; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Overview & Architecture</span>
+                <h2 class="font-weight-bold mt-2" style="color: #0f172a; font-size: 2.3rem; letter-spacing: -0.5px;">Core Functionalities in Detail</h2>
+                <div style="width: 50px; height: 4px; background-color: #3b82f6; border-radius: 2px; margin: 15px auto 25px;"></div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-0" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-center mb-4" style="background-color: #eff6ff; color: #3b82f6; width: 60px; height: 60px; border-radius: 12px;">
+                            <i class="fa fa-th-large fa-2x"></i>
+                        </div>
+                        <h4 class="font-weight-bold" style="color: #0f172a; font-size: 1.25rem;">Global Dashboard Filtering</h4>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.55;">
+                            The global header panel allows you to apply <strong>Real-Time Date Filters</strong> (Today, This Week, This Month, This Year, Custom Range). These filters apply instantly across all charts in the dashboard, giving you a synchronized snapshot of your data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-0" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-center mb-4" style="background-color: #ecfdf5; color: #10b981; width: 60px; height: 60px; border-radius: 12px;">
+                            <i class="fa fa-copy fa-2x"></i>
+                        </div>
+                        <h4 class="font-weight-bold" style="color: #0f172a; font-size: 1.25rem;">Chart Copying System</h4>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.55;">
+                            Don't rebuild from scratch! Use the options menu on any widget to <strong>Copy Chart</strong>. This instantly duplicates the configuration and allows you to attach it to a different dashboard board in one click.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-0" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-center mb-4" style="background-color: #faf5ff; color: #a855f7; width: 60px; height: 60px; border-radius: 12px;">
+                            <i class="fa fa-cogs fa-2x"></i>
+                        </div>
+                        <h4 class="font-weight-bold" style="color: #0f172a; font-size: 1.25rem;">Data Export (CSV & PNG)</h4>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.55;">
+                            Present your findings in meetings effortlessly. Every widget features an export menu allowing you to download a high-resolution <strong>PNG Image</strong> of the graph, or a raw <strong>CSV Excel File</strong> of the underlying grouped data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Detailed Chart Types Guide -->
+    <div class="container mb-5 mt-5">
+        <div class="row align-items-center" style="background-color: #ffffff; border-radius: 20px; padding: 4rem 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+            <div class="col-lg-12">
+                <h3 class="font-weight-bold mb-2 text-center" style="color: #0f172a; font-size: 2rem;">Supported Visualizations & Use Cases</h3>
+                <p class="text-muted text-center mb-5" style="font-size: 1.1rem;">Choose the perfect visualization to analyze and share your data trends.</p>
+                
+                <div class="row text-left">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="font-weight-bold" style="color: #0f172a;"><i class="fa fa-credit-card text-primary mr-2"></i> KPI Cards</h5>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5;">Shows a single, large aggregated metric. Best for high-level targets like <strong>Total Monthly Sales</strong>, or <strong>Pending Opportunities</strong>.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="font-weight-bold" style="color: #0f172a;"><i class="fa fa-bar-chart text-success mr-2"></i> Bar Charts</h5>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5;">Renders category comparisons side-by-side. Best for comparing independent segments like <strong>Revenue per Customer</strong> or <strong>Stock levels</strong>.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="font-weight-bold" style="color: #0f172a;"><i class="fa fa-line-chart text-info mr-2"></i> Line & Area Charts</h5>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5;">Connects data points in a curve. Area charts shade the bottom region. Best for time-series progressions like <strong>Monthly Revenue Trends</strong>.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="font-weight-bold" style="color: #0f172a;"><i class="fa fa-pie-chart text-warning mr-2"></i> Pie & Doughnut Charts</h5>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5;">Displays shares of a total amount. Best for looking at distributions like <strong>Sales by Product Category</strong> or <strong>Lead Sources</strong>.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="font-weight-bold" style="color: #0f172a;"><i class="fa fa-list text-secondary mr-2"></i> Data Tables (Lists)</h5>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5;">Renders a clean grid list of categories and numbers. Best for displaying lists like <strong>Top 10 Selling Products</strong> or <strong>Top Confirmed Orders</strong>.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="font-weight-bold" style="color: #0f172a;"><i class="fa fa-arrows-alt text-danger mr-2"></i> Interactive Drill-Down</h5>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5;">Clicking any chart segment or list row opens the underlying Odoo record view, pre-filtered by that specific category and date range.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Advanced Customization & Layout Options -->
+    <div class="container mb-5 mt-5">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 offset-lg-2">
+                <span style="color: #3b82f6; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Design and UX Controls</span>
+                <h2 class="font-weight-bold mt-2" style="color: #0f172a; font-size: 2.3rem;">Visual Customization Features</h2>
+                <div style="width: 50px; height: 4px; background-color: #3b82f6; border-radius: 2px; margin: 15px auto 25px;"></div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
-                    <div class="card-body p-4 text-center">
-                        <div class="mb-4" style="color: #00f2fe;">
-                            <i class="fa fa-line-chart fa-3x"></i>
-                        </div>
-                        <h4 class="card-title font-weight-bold" style="color: #0d1117;">Sales Overview</h4>
-                        <p class="card-text text-muted">Track monthly revenue trends, top 5 salespersons, and your total confirmed order count automatically.</p>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 p-3" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); border: 1px solid #f1f5f9;">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold mb-3" style="color: #0f172a;"><i class="fa fa-paint-brush text-primary mr-2"></i> Custom Shades Generator</h4>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.6;">
+                            Our custom color picker allows you to input any Hex color (e.g. Red, Blue, Corporate Color). 
+                            The generator applies an advanced shifting algorithm (+12 degrees hue, varied lightness) to output a highly distinct and distinguishable monochromatic palette, ensuring graphs are perfectly readable.
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
-                    <div class="card-body p-4 text-center">
-                        <div class="mb-4" style="color: #00f2fe;">
-                            <i class="fa fa-cubes fa-3x"></i>
-                        </div>
-                        <h4 class="card-title font-weight-bold" style="color: #0d1117;">Inventory & Warehouse</h4>
-                        <p class="card-text text-muted">A clear doughnut chart showing your stock valuation by category and your daily warehouse operation moves.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
-                    <div class="card-body p-4 text-center">
-                        <div class="mb-4" style="color: #00f2fe;">
-                            <i class="fa fa-shopping-cart fa-3x"></i>
-                        </div>
-                        <h4 class="card-title font-weight-bold" style="color: #0d1117;">Purchases Tracker</h4>
-                        <p class="card-text text-muted">Monitor spending trends and quickly identify your top 5 vendors to negotiate better deals.</p>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 p-3" style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); border: 1px solid #f1f5f9;">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold mb-3" style="color: #0f172a;"><i class="fa fa-cogs text-success mr-2"></i> Persisted Formatting Tools</h4>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.6;">
+                            Toggle <strong>Gridlines</strong>, <strong>Legends</strong>, <strong>Rounded Bar Corners</strong>, <strong>Line Smoothing</strong>, <strong>Render Animations</strong>, and <strong>Data Labels</strong>.
+                            All settings are saved directly in browser <code>localStorage</code> per widget. Toggling dark mode or updating parameters preserves your color and design settings exactly!
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Intuitive Builder -->
+    <!-- 4. 90 Days Support Guarantee -->
     <div class="container mb-5 mt-5">
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <div style="background-color: #ffffff; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    <h3 class="font-weight-bold text-center mb-4">Create Your Own!</h3>
-                    <ul class="list-unstyled">
-                        <li class="mb-3"><i class="fa fa-check text-success mr-2"></i> Choose any Odoo Model (CRM, Invoices, HR, etc.)</li>
-                        <li class="mb-3"><i class="fa fa-check text-success mr-2"></i> Select Chart Type: Bar, Line, Pie, Doughnut, KPI</li>
-                        <li class="mb-3"><i class="fa fa-check text-success mr-2"></i> Group by Dates or Categories</li>
-                        <li class="mb-3"><i class="fa fa-check text-success mr-2"></i> Apply Custom Data Filters</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-6 pl-lg-5">
-                <h3 class="font-weight-bold" style="color: #0d1117;">Incredibly Intuitive Builder</h3>
-                <p class="text-muted mt-3" style="font-size: 1.1rem;">
-                    Need a custom dashboard for your marketing campaigns or HR attendances? 
-                    Our intuitive backend interface allows non-technical users to build new charts in seconds. Just pick the model, the field you want to measure, and the chart type!
+        <div class="row align-items-center" style="background-color: #0f172a; border-radius: 20px; padding: 4rem 3rem; box-shadow: 0 15px 40px rgba(15, 23, 42, 0.2); border: 1px solid #1e293b;">
+            <div class="col-lg-8 text-left">
+                <h3 class="font-weight-bold mb-3" style="color: #ffffff; font-size: 2.2rem;"><i class="fa fa-life-ring text-warning mr-2"></i> 90 Days Free Support</h3>
+                <p class="mb-0" style="color: #94a3b8; font-size: 1.15rem; line-height: 1.7;">
+                    Your purchase includes <strong>90 days of complete support</strong>. 
+                    If you encounter any bugs, installation issues, or unexpected behavior in Odoo standard environments, our technical team will help you solve it at no extra cost. 
+                    We are committed to the success and stability of your system.
                 </p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div style="display: inline-block; background: rgba(56, 189, 248, 0.1); border: 2px solid #38bdf8; border-radius: 50%; padding: 30px; margin-top: 20px;">
+                    <i class="fa fa-shield fa-4x text-info" style="font-size: 5rem;"></i>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Footer / Author Section -->
-    <div class="container text-center mt-5 pt-5 pb-4" style="border-top: 1px solid #e9ecef;">
-        <h4 class="font-weight-bold mb-3" style="color: #0d1117;">Enterprise Features for Everyone</h4>
-        <p class="text-muted mb-4" style="font-size: 1.1rem;">Developed by <strong>JDDM</strong></p>
+    <div class="container text-center mt-5 pt-5 pb-4" style="border-top: 1px solid #e2e8f0;">
+        <h4 class="font-weight-bold mb-3" style="color: #0f172a; font-size: 1.5rem;">Premium Dynamic Dashboards Pro</h4>
+        <p class="text-muted mb-4" style="font-size: 1.05rem;">Developed with passion by <strong>JDDM</strong></p>
     </div>
 
 </section>
-
-</body>
-</html>
