@@ -2,13 +2,29 @@
     <t t-name="dynamic_dashboards.ChartWidget" owl="1">
         <div t-attf-class="card h-100 {{ props.darkMode ? 'dark-mode-card text-white' : 'light-mode-card' }}" style="border-radius: 15px; overflow: hidden;">
             <div t-attf-class="card-header border-0 pt-4 pb-2 d-flex justify-content-between align-items-center {{ props.darkMode ? 'bg-transparent' : 'bg-white' }}">
-                <h5 t-attf-class="card-title fw-bold mb-0 {{ props.darkMode ? 'text-white' : 'text-dark' }}">
-                    <t t-esc="props.item.name"/>
-                </h5>
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-arrows me-3 text-muted" style="cursor: grab;" title="Drag to Reorder"></i>
+                    <h5 t-attf-class="card-title fw-bold mb-0 {{ props.darkMode ? 'text-white' : 'text-dark' }}">
+                        <t t-esc="props.item.name"/>
+                    </h5>
+                </div>
                 <div>
-                    <button t-if="!props.previewData" t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" t-on-click="onEditChart" title="Edit Chart Settings">
-                        <i t-attf-class="fa fa-ellipsis-v {{ props.darkMode ? 'dark-mode-icon' : '' }}"></i>
-                    </button>
+                    <div class="dropdown d-inline-block" t-if="!props.previewData">
+                        <button t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Options">
+                            <i t-attf-class="fa fa-ellipsis-v {{ props.darkMode ? 'dark-mode-icon' : '' }}"></i>
+                        </button>
+                        <ul t-attf-class="dropdown-menu dropdown-menu-end shadow-sm {{ props.darkMode ? 'dropdown-menu-dark' : '' }}">
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="onEditChart"><i class="fa fa-pencil me-2 text-primary"></i> Edit Data</a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><h6 class="dropdown-header">Chart Type</h6></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartType('bar')"><i class="fa fa-bar-chart me-2 text-info"></i> Bar Chart</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartType('line')"><i class="fa fa-line-chart me-2 text-info"></i> Line Chart</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartType('pie')"><i class="fa fa-pie-chart me-2 text-info"></i> Pie Chart</a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="changeChartColor"><i class="fa fa-paint-brush me-2 text-warning"></i> Change Colors</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="toggleDataLabels"><i class="fa fa-tags me-2 text-success"></i> Toggle Data Labels</a></li>
+                        </ul>
+                    </div>
                     <button t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" t-on-click="downloadCsv" title="Export to CSV">
                         <i t-attf-class="fa fa-file-excel-o {{ props.darkMode ? 'dark-mode-icon' : '' }}"></i>
                     </button>

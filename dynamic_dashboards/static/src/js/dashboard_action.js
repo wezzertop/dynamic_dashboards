@@ -2,7 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { Component, useState, onWillStart, onWillDestroy } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+import { useService, useBus } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { ChartWidget } from "./chart_widget";
 
@@ -20,6 +20,12 @@ export class DynamicDashboardMain extends Component {
         });
 
         this.refreshInterval = null;
+
+        useBus(this.env.bus, "refresh_dashboard", () => {
+            if (this.state.activeDashboardId) {
+                this.loadDashboardItems(this.state.activeDashboardId, true);
+            }
+        });
 
         onWillStart(async () => {
             await this.loadDashboards();

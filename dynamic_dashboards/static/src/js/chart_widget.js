@@ -13,7 +13,9 @@ export class ChartWidget extends Component {
         
         this.state = useState({
             loading: true,
-            data: {}
+            data: {},
+            customColor: false,
+            showDataLabels: false
         });
         
         this.lastDateFilter = this.props.dateFilter;
@@ -107,9 +109,34 @@ export class ChartWidget extends Component {
             name: _t("Edit Chart Settings"),
         }, {
             onClose: () => {
-                window.location.reload();
+                this.env.bus.trigger('refresh_dashboard');
             }
         });
+    }
+
+    async changeChartType(type) {
+        this.props.item.chart_type = type;
+        await this.orm.write("dynamic.dashboard.item", [this.props.item.id], { chart_type: type });
+        this.renderChart();
+    }
+
+    changeChartColor() {
+        this.state.customColor = !this.state.customColor;
+        this.renderChart();
+    }
+
+    toggleDataLabels() {
+        this.state.showDataLabels = !this.state.showDataLabels;
+        this.renderChart();
+    }
+
+    getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 
     renderChart() {
@@ -129,14 +156,24 @@ export class ChartWidget extends Component {
         const data = this.state.data.data || [];
 
         // Colors
-        const backgroundColors = [
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)',
-            'rgba(255, 159, 64, 0.7)'
-        ];
+        let backgroundColors = [];
+        if (this.state.customColor) {
+            for (let i = 0; i < data.length; i++) {
+                backgroundColors.push(this.getRandomColor() + 'B3');
+            }
+        } else {
+            const defaultColors = [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
+            ];
+            for (let i = 0; i < data.length; i++) {
+                backgroundColors.push(defaultColors[i % defaultColors.length]);
+            }
+        }
 
         let chartJsType = type;
         let fillArea = false;
@@ -145,15 +182,35 @@ export class ChartWidget extends Component {
             fillArea = true;
         }
 
+        const customDataLabels = {
+            id: 'customDataLabels',
+            afterDatasetsDraw: (chart, args, pluginOptions) => {
+                if (!this.state.showDataLabels) return;
+                const { ctx } = chart;
+                chart.data.datasets.forEach((dataset, i) => {
+                    const meta = chart.getDatasetMeta(i);
+                    meta.data.forEach((element, index) => {
+                        ctx.fillStyle = this.props.darkMode ? '#fff' : '#000';
+                        const dataString = this.formatNumber(dataset.data[index]);
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        const position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - 15);
+                    });
+                });
+            }
+        };
+
         const config = {
             type: chartJsType,
+            plugins: [customDataLabels],
             data: {
                 labels: labels,
                 datasets: [{
                     label: this.props.item.name,
                     data: data,
                     backgroundColor: chartJsType === 'line' ? 'rgba(54, 162, 235, 0.2)' : backgroundColors,
-                    borderColor: chartJsType === 'line' ? 'rgba(54, 162, 235, 1)' : backgroundColors.map(c => c.replace('0.7', '1')),
+                    borderColor: chartJsType === 'line' ? 'rgba(54, 162, 235, 1)' : backgroundColors.map(c => c.replace('B3', 'FF').replace('0.7', '1')),
                     borderWidth: 1,
                     fill: fillArea,
                     tension: 0.4
