@@ -8,14 +8,14 @@ export class ChartWidget extends Component {
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
+        this.notification = useService("notification");
         this.canvasRef = useRef("canvas");
         this.chartInstance = null;
         
         this.state = useState({
             loading: true,
             data: {},
-            customColor: false,
-            showDataLabels: false
+            updateTrigger: 0
         });
         
         this.lastDateFilter = this.props.dateFilter;
@@ -48,6 +48,46 @@ export class ChartWidget extends Component {
                  this.renderChart();
             }
         });
+    }
+
+    get colorTheme() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_color_theme_${itemId}`) || 'default') : 'default';
+    }
+
+    get customBaseColor() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_custom_color_${itemId}`) || '#36a2eb') : '#36a2eb';
+    }
+
+    get showDataLabels() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_show_labels_${itemId}`) === 'true') : false;
+    }
+
+    get showLegend() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_show_legend_${itemId}`) !== 'false') : true;
+    }
+
+    get showGridlines() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_show_grid_${itemId}`) !== 'false') : true;
+    }
+
+    get smoothLines() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_smooth_${itemId}`) !== 'false') : true;
+    }
+
+    get roundedBars() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_rounded_${itemId}`) !== 'false') : true;
+    }
+
+    get enableAnimations() {
+        const itemId = this.props.item.id;
+        return itemId ? (localStorage.getItem(`dashboard_item_animate_${itemId}`) !== 'false') : true;
     }
 
     async fetchData() {
@@ -115,18 +155,99 @@ export class ChartWidget extends Component {
     }
 
     async changeChartType(type) {
+        if (!this.props.item || !this.props.item.id) return;
         this.props.item.chart_type = type;
         await this.orm.write("dynamic.dashboard.item", [this.props.item.id], { chart_type: type });
         this.renderChart();
     }
 
-    changeChartColor() {
-        this.state.customColor = !this.state.customColor;
+    async changeChartSize(size) {
+        if (!this.props.item || !this.props.item.id) return;
+        this.props.item.col_span = size.toString();
+        await this.orm.write("dynamic.dashboard.item", [this.props.item.id], { col_span: size.toString() });
+        this.env.bus.trigger('refresh_dashboard');
+    }
+
+    async copyToDashboard(targetDashboardId) {
+        if (!this.props.item || !this.props.item.id) return;
+        try {
+            await this.orm.call("dynamic.dashboard.item", "copy", [this.props.item.id], {
+                default: { dashboard_id: targetDashboardId }
+            });
+            if (this.notification) {
+                this.notification.add(_t("Chart copied successfully!"), {
+                    type: "success",
+                    sticky: false
+                });
+            }
+        } catch (e) {
+            console.error("Failed to copy chart", e);
+        }
+    }
+
+    selectColorTheme(theme) {
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_color_theme_${this.props.item.id}`, theme);
+        this.state.updateTrigger++;
+        this.renderChart();
+    }
+
+    onCustomColorChange(ev) {
+        if (!this.props.item || !this.props.item.id) return;
+        const color = ev.target.value;
+        localStorage.setItem(`dashboard_item_color_theme_${this.props.item.id}`, 'custom');
+        localStorage.setItem(`dashboard_item_custom_color_${this.props.item.id}`, color);
+        this.state.updateTrigger++;
         this.renderChart();
     }
 
     toggleDataLabels() {
-        this.state.showDataLabels = !this.state.showDataLabels;
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_show_labels_${this.props.item.id}`, !this.showDataLabels);
+        this.state.updateTrigger++;
+        this.renderChart();
+    }
+
+    toggleLegend() {
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_show_legend_${this.props.item.id}`, !this.showLegend);
+        this.state.updateTrigger++;
+        this.renderChart();
+    }
+
+    toggleGridlines() {
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_show_grid_${this.props.item.id}`, !this.showGridlines);
+        this.state.updateTrigger++;
+        this.renderChart();
+    }
+
+    async changeRecordLimit(limit) {
+        if (!this.props.item || !this.props.item.id) return;
+        this.props.item.limit = limit;
+        await this.orm.write("dynamic.dashboard.item", [this.props.item.id], { limit: limit });
+        await this.fetchData();
+        this.renderChart();
+    }
+
+    toggleSmoothLines() {
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_smooth_${this.props.item.id}`, !this.smoothLines);
+        this.state.updateTrigger++;
+        this.renderChart();
+    }
+
+    toggleRoundedBars() {
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_rounded_${this.props.item.id}`, !this.roundedBars);
+        this.state.updateTrigger++;
+        this.renderChart();
+    }
+
+    toggleAnimations() {
+        if (!this.props.item || !this.props.item.id) return;
+        localStorage.setItem(`dashboard_item_animate_${this.props.item.id}`, !this.enableAnimations);
+        this.state.updateTrigger++;
         this.renderChart();
     }
 
@@ -137,6 +258,75 @@ export class ChartWidget extends Component {
             color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
+    }
+
+    hexToHsl(hex) {
+        let r = parseInt(hex.slice(1, 3), 16) / 255;
+        let g = parseInt(hex.slice(3, 5), 16) / 255;
+        let b = parseInt(hex.slice(5, 7), 16) / 255;
+
+        let max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+
+        if (max === min) {
+            h = s = 0;
+        } else {
+            let d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+
+        return {
+            h: Math.round(h * 360),
+            s: Math.round(s * 100),
+            l: Math.round(l * 100)
+        };
+    }
+
+    generateShades(baseHex, count) {
+        if (count <= 1) return [baseHex];
+        const hsl = this.hexToHsl(baseHex);
+        let colors = [];
+        for (let i = 0; i < count; i++) {
+            let h = (hsl.h + (i * 12)) % 360;
+            let s = Math.min(95, Math.max(50, hsl.s - 15 + ((i % 2) * 20)));
+            let step = i / (count - 1);
+            let l = Math.round(30 + (step * 45));
+            colors.push(`hsl(${h}, ${s}%, ${l}%)`);
+        }
+        return colors;
+    }
+
+    getThemeColors(theme, count) {
+        let palette = [];
+        switch (theme) {
+            case 'cool':
+                palette = ['#0288D1', '#03A9F4', '#29B6F6', '#4FC3F7', '#81D4FA', '#B3E5FC']; break;
+            case 'warm':
+                palette = ['#D32F2F', '#E53935', '#F44336', '#EF5350', '#E57373', '#EF9A9A']; break;
+            case 'emerald':
+                palette = ['#388E3C', '#4CAF50', '#66BB6A', '#81C784', '#A5D6A7', '#C8E6C9']; break;
+            case 'purple':
+                palette = ['#7B1FA2', '#8E24AA', '#9C27B0', '#AB47BC', '#BA68C8', '#CE93D8']; break;
+            case 'custom':
+                return this.generateShades(this.customBaseColor, count);
+            case 'random':
+                for (let i = 0; i < count; i++) palette.push(this.getRandomColor());
+                return palette;
+            default:
+                palette = ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']; break;
+        }
+        
+        let result = [];
+        for (let i = 0; i < count; i++) {
+            result.push(palette[i % palette.length]);
+        }
+        return result;
     }
 
     renderChart() {
@@ -156,24 +346,16 @@ export class ChartWidget extends Component {
         const data = this.state.data.data || [];
 
         // Colors
-        let backgroundColors = [];
-        if (this.state.customColor) {
-            for (let i = 0; i < data.length; i++) {
-                backgroundColors.push(this.getRandomColor() + 'B3');
-            }
-        } else {
-            const defaultColors = [
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)'
-            ];
-            for (let i = 0; i < data.length; i++) {
-                backgroundColors.push(defaultColors[i % defaultColors.length]);
-            }
-        }
+        const baseColors = this.getThemeColors(this.colorTheme, data.length);
+        
+        // Add opacity for background
+        const backgroundColors = baseColors.map(c => {
+            if(c.length === 7) return c + 'B3'; // hex to 70% opacity
+            if(c.startsWith('rgba')) return c.replace('1)', '0.7)');
+            return c;
+        });
+        
+        const borderColors = baseColors;
 
         let chartJsType = type;
         let fillArea = false;
@@ -185,7 +367,7 @@ export class ChartWidget extends Component {
         const customDataLabels = {
             id: 'customDataLabels',
             afterDatasetsDraw: (chart, args, pluginOptions) => {
-                if (!this.state.showDataLabels) return;
+                if (!this.showDataLabels) return;
                 const { ctx } = chart;
                 chart.data.datasets.forEach((dataset, i) => {
                     const meta = chart.getDatasetMeta(i);
@@ -201,6 +383,10 @@ export class ChartWidget extends Component {
             }
         };
 
+        const lineFillColor = borderColors[0].startsWith('#') 
+            ? borderColors[0] + '33' 
+            : borderColors[0].replace('1)', '0.2)').replace('B3', '33');
+
         const config = {
             type: chartJsType,
             plugins: [customDataLabels],
@@ -209,14 +395,16 @@ export class ChartWidget extends Component {
                 datasets: [{
                     label: this.props.item.name,
                     data: data,
-                    backgroundColor: chartJsType === 'line' ? 'rgba(54, 162, 235, 0.2)' : backgroundColors,
-                    borderColor: chartJsType === 'line' ? 'rgba(54, 162, 235, 1)' : backgroundColors.map(c => c.replace('B3', 'FF').replace('0.7', '1')),
-                    borderWidth: 1,
+                    backgroundColor: chartJsType === 'line' ? lineFillColor : backgroundColors,
+                    borderColor: chartJsType === 'line' ? borderColors[0] : borderColors,
+                    borderWidth: 2,
                     fill: fillArea,
-                    tension: 0.4
+                    tension: chartJsType === 'line' ? (this.smoothLines ? 0.4 : 0) : 0,
+                    borderRadius: chartJsType === 'bar' ? (this.roundedBars ? 8 : 0) : 0
                 }]
             },
             options: {
+                animation: this.enableAnimations ? { duration: 800 } : { duration: 0 },
                 onClick: (event, elements, chart) => {
                     if (elements && elements.length > 0) {
                         const index = elements[0].index;
@@ -227,8 +415,8 @@ export class ChartWidget extends Component {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: ['pie', 'doughnut'].includes(chartJsType),
-                        position: 'right',
+                        display: this.showLegend && ['pie', 'doughnut', 'bar', 'line'].includes(chartJsType),
+                        position: 'bottom',
                         labels: {
                             color: this.props.darkMode ? '#fff' : '#666'
                         }
@@ -237,11 +425,18 @@ export class ChartWidget extends Component {
                 scales: ['pie', 'doughnut', 'radar', 'polarArea'].includes(chartJsType) ? {} : {
                     x: {
                         ticks: { color: this.props.darkMode ? '#aaa' : '#666' },
-                        grid: { color: this.props.darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }
+                        grid: { 
+                            display: this.showGridlines,
+                            color: this.props.darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' 
+                        }
                     },
                     y: {
+                        grace: '15%',
                         ticks: { color: this.props.darkMode ? '#aaa' : '#666' },
-                        grid: { color: this.props.darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }
+                        grid: { 
+                            display: this.showGridlines,
+                            color: this.props.darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' 
+                        }
                     }
                 }
             }

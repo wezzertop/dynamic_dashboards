@@ -13,7 +13,7 @@
                         <button t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Options">
                             <i t-attf-class="fa fa-ellipsis-v {{ props.darkMode ? 'dark-mode-icon' : '' }}"></i>
                         </button>
-                        <ul t-attf-class="dropdown-menu dropdown-menu-end shadow-sm {{ props.darkMode ? 'dropdown-menu-dark' : '' }}">
+                        <ul t-attf-class="dropdown-menu dropdown-menu-end shadow-sm {{ props.darkMode ? 'dropdown-menu-dark' : '' }}" style="max-height: 280px; overflow-y: auto;">
                             <li><a class="dropdown-item" href="#" t-on-click.prevent="onEditChart"><i class="fa fa-pencil me-2 text-primary"></i> Edit Data</a></li>
                             <li><hr class="dropdown-divider"/></li>
                             <li><h6 class="dropdown-header">Chart Type</h6></li>
@@ -21,8 +21,70 @@
                             <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartType('line')"><i class="fa fa-line-chart me-2 text-info"></i> Line Chart</a></li>
                             <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartType('pie')"><i class="fa fa-pie-chart me-2 text-info"></i> Pie Chart</a></li>
                             <li><hr class="dropdown-divider"/></li>
-                            <li><a class="dropdown-item" href="#" t-on-click.prevent="changeChartColor"><i class="fa fa-paint-brush me-2 text-warning"></i> Change Colors</a></li>
-                            <li><a class="dropdown-item" href="#" t-on-click.prevent="toggleDataLabels"><i class="fa fa-tags me-2 text-success"></i> Toggle Data Labels</a></li>
+                            <li><h6 class="dropdown-header">Color Palette</h6></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.selectColorTheme('default')"><i class="fa fa-circle text-primary me-2"></i> Default Theme</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.selectColorTheme('cool')"><i class="fa fa-circle text-info me-2"></i> Cool Blues</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.selectColorTheme('warm')"><i class="fa fa-circle text-danger me-2"></i> Warm Reds</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.selectColorTheme('emerald')"><i class="fa fa-circle text-success me-2"></i> Emerald Greens</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.selectColorTheme('purple')"><i class="fa fa-circle text-warning me-2"></i> Royal Purples</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.selectColorTheme('random')"><i class="fa fa-random me-2 text-secondary"></i> Random Colors</a></li>
+                            <li>
+                                <div class="dropdown-item d-flex align-items-center justify-content-between py-1">
+                                    <span><i class="fa fa-paint-brush text-warning me-2"></i> Custom Color</span>
+                                    <input type="color" class="form-control-color border-0 p-0" style="width: 24px; height: 24px; cursor: pointer; background: transparent;"
+                                           t-att-value="customBaseColor"
+                                           t-on-change="onCustomColorChange"
+                                           title="Choose custom base color"/>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><h6 class="dropdown-header">Record Limit</h6></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeRecordLimit(5)"><i class="fa fa-list-ol me-2 text-secondary"></i> Top 5 Records</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeRecordLimit(10)"><i class="fa fa-list-ol me-2 text-secondary"></i> Top 10 Records</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeRecordLimit(20)"><i class="fa fa-list-ol me-2 text-secondary"></i> Top 20 Records</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeRecordLimit(50)"><i class="fa fa-list-ol me-2 text-secondary"></i> Top 50 Records</a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><h6 class="dropdown-header">Chart Size</h6></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartSize(3)"><i class="fa fa-columns me-2 text-muted"></i> 1/4 Width</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartSize(4)"><i class="fa fa-columns me-2 text-muted"></i> 1/3 Width</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartSize(6)"><i class="fa fa-columns me-2 text-muted"></i> 1/2 Width</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartSize(8)"><i class="fa fa-columns me-2 text-muted"></i> 2/3 Width</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.changeChartSize(12)"><i class="fa fa-columns me-2 text-muted"></i> Full Width</a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><h6 class="dropdown-header">Chart Tools</h6></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="toggleDataLabels">
+                                <i t-attf-class="fa fa-{{ showDataLabels ? 'check-square-o' : 'square-o' }} me-2 text-success"></i> Data Labels
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="toggleLegend">
+                                <i t-attf-class="fa fa-{{ showLegend ? 'check-square-o' : 'square-o' }} me-2 text-info"></i> Show Legend
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="toggleGridlines">
+                                <i t-attf-class="fa fa-{{ showGridlines ? 'check-square-o' : 'square-o' }} me-2 text-primary"></i> Show Gridlines
+                            </a></li>
+                            <li t-if="props.item.chart_type === 'line' || props.item.chart_type === 'area'"><a class="dropdown-item" href="#" t-on-click.prevent="toggleSmoothLines">
+                                <i t-attf-class="fa fa-{{ smoothLines ? 'check-square-o' : 'square-o' }} me-2 text-warning"></i> Smooth Lines
+                            </a></li>
+                            <li t-if="props.item.chart_type === 'bar'"><a class="dropdown-item" href="#" t-on-click.prevent="toggleRoundedBars">
+                                <i t-attf-class="fa fa-{{ roundedBars ? 'check-square-o' : 'square-o' }} me-2 text-warning"></i> Rounded Bars
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="toggleAnimations">
+                                <i t-attf-class="fa fa-{{ enableAnimations ? 'check-square-o' : 'square-o' }} me-2 text-danger"></i> Animations
+                            </a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><h6 class="dropdown-header">Copy to Dashboard</h6></li>
+                            <t t-if="props.dashboards">
+                                <t t-foreach="props.dashboards" t-as="dash" t-key="dash.id">
+                                    <li t-if="dash.id !== props.item.dashboard_id">
+                                        <a class="dropdown-item" href="#" t-on-click.prevent="() => this.copyToDashboard(dash.id)">
+                                            <i class="fa fa-copy me-2 text-info"></i> To: <t t-esc="dash.name"/>
+                                        </a>
+                                    </li>
+                                </t>
+                            </t>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><h6 class="dropdown-header">Export Options</h6></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="downloadCsv"><i class="fa fa-file-excel-o me-2 text-success"></i> Export CSV</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="downloadChart"><i class="fa fa-download me-2 text-primary"></i> Export PNG (Image)</a></li>
                         </ul>
                     </div>
                     <button t-attf-class="btn btn-sm me-1 {{ props.darkMode ? 'dark-mode-btn' : 'btn-outline-secondary' }}" t-on-click="downloadCsv" title="Export to CSV">

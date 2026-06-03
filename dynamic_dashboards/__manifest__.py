@@ -9,11 +9,16 @@ Premium Dynamic Dashboards Pro
 Empower your business with real-time analytics. Build custom dashboards for Sales, Inventory, Purchases, and more without writing a single line of code.
 
 Key Features:
-- Drag & Drop Grid Layout
-- Chart Types: Bar, Line, Pie, Doughnut, KPI Cards
-- Dynamic Data Grouping and Filtering
-- Pre-built templates for Sales, Inventory, and Purchases
-- Responsive and modern OWL frontend
+- Drag & Drop Grid Layout with Auto-Organize button to instantly arrange KPIs, main/secondary charts, and lists.
+- Smart Dynamic Fallback Generator: Automatically scans custom models' metadata to suggest date, measure, and relational fields.
+- Dynamic Data Grouping and Filtering.
+- Chart Types: Bar, Line, Area, Pie, Doughnut, KPI Cards, and Data Tables.
+- Copy Charts: Clone and transfer charts between dashboards.
+- Persisted Formatting Tools: Toggle gridlines, legends, smooth lines, rounded bars, data labels, and animations.
+- HSL Shift custom base color shade generator for highly distinct and distinguishable variations.
+- Dark/Light mode visual persistence (settings saved inside localStorage).
+- Export to Excel-friendly CSV or high-resolution PNG image.
+- Responsive and modern OWL frontend.
     """,
     'author': 'JDDM',
     'depends': ['base', 'web', 'board'],
